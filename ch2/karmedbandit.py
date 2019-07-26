@@ -17,10 +17,10 @@ class KArmedBandit:
     Rewards come from randomized gaussian distributions.
     """
     
-    def __init__(self, k, mean=0, std=1.0):
+    def __init__(self, k, mean=0, variance=1.0):
         self.k = k
         self.reset()
-        self.mean_values = np.random.normal(mean, std, size=k)
+        self.mean_values = np.random.normal(mean, variance, size=k)
         
         # Plots reward distributions
         fig, ax = plt.subplots(1, k, figsize=(10, 6), constrained_layout=True, sharex=True, sharey=True)
@@ -30,28 +30,26 @@ class KArmedBandit:
         [(ax[i].set_xticks([]), ax[i].set_xlabel("Action %i" % (i+1))) for i in range(k)]
         fig.suptitle("The %i-armed bandit" % k)
         plt.show()
-        fig.savefig("../img/ch2/karmedbandit_actions.png", dpi=100)
-        
     
     def reset(self):
         # Resets counters and rewards
-        self.avg_reward = list()
+        self.avg_reward = 0
         self.Q = np.zeros(shape=(self.k,))
         self.N = np.zeros(shape=(self.k,))
+        self.avg_rewards = list()
         self.optimal = np.array([])
     
-    def get_reward(self, action):
+    def get_reward(self, action, step):
         # Computes the reward
         reward = np.random.normal(loc=self.mean_values[action], scale=1.0)
         
         # Updates action counts and action values
         self.N[action] += 1
-        self.Q[action] = self.Q[action] + (1 / self.N[action]) * (reward - self.Q[action])
+        self.Q[action] += (1 / self.N[action]) * (reward - self.Q[action])
         
-        # Updates the (weighted) average reward
-        p = self.N / self.N.sum()
-        avg_reward = (self.Q * p).sum() / p.sum()
-        self.avg_reward.append(avg_reward)
+        # Updates the average reward
+        self.avg_reward += (reward - self.avg_reward) / step
+        self.avg_rewards.append(self.avg_reward)
     
     def rob(self, p, steps=1000):
         # Plays for a certain number of steps
@@ -68,7 +66,7 @@ class KArmedBandit:
                 self.optimal = np.append(self.optimal, 1)
             else:
                 self.optimal = np.append(self.optimal, 0)
-            self.get_reward(action)
+            self.get_reward(action, t)
             t += 1
             
     def rob_n_times(self, n=100, steps=1000, p=0.1, verbose=False):
@@ -76,18 +74,18 @@ class KArmedBandit:
         for robbery in range(n):
             self.rob(p, steps)
             if robbery == 0:
-                mean_Q = np.array(self.avg_reward)
-                mean_O = self.optimal
+                avg_R = np.array(self.avg_rewards)
+                avg_optimal = self.optimal
             else:
-                mean_Q += np.array(self.avg_reward)
-                mean_O += self.optimal
+                avg_R += np.array(self.avg_rewards)
+                avg_optimal += self.optimal
         if verbose:
             fig, ax = plt.subplots(1, 1)
-            ax.plot(range(steps), mean_Q)
+            ax.plot(range(steps), avg_R)
             ax.set_xlabel("Steps"), ax.set_ylabel("Average reward")
             plt.show()
         else:
-            return mean_Q / n, mean_O / n
+            return avg_R / n, avg_optimal / n
         
 if __name__ == "__main__":
     
