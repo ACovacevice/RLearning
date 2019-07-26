@@ -7,7 +7,7 @@ Code being developed while studying the book "Reinforcement Learning: An Introdu
 Results for the k-armed bandit model are presented below:
 
 <p align="center">
-    <img src="img/ch2/karmedbandit_actions.png"><br>
+    <img src="img/ch2/karmedbandit_actions.png" width="85%" height="85%"><br>
     <b>Figure 2.1.</b> A randomized 10-armed bandit. Each action rewards according to a gaussian distribution.
 </p>
 
