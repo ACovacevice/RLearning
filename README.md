@@ -4,7 +4,7 @@ Code being developed while studying the book "Reinforcement Learning: An Introdu
 
 ## Chapter 2: Multi-armed Bandits
 
-<p>Some results for the <i>"sample-averaged"</i>, &epsilon-greedy; 10-armed bandit model are presented below:<p>
+Some results for the <i>"sample-averaged"</i>, <i>&epsilon-greedy;</i> 10-armed bandit model are presented below:
 
 <p align="center">
     <img src="img/ch2/karmedbandit_actions.png" width="85%" height="85%"><br>
