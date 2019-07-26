@@ -17,10 +17,10 @@ class KArmedBandit:
     Rewards come from randomized gaussian distributions.
     """
     
-    def __init__(self, k, mean=0, variance=1.0):
+    def __init__(self, k, mean=0, std=1.0):
         self.k = k
         self.reset()
-        self.mean_values = np.random.normal(mean, variance, size=k)
+        self.mean_values = np.random.normal(mean, std, size=k)
         
         # Plots reward distributions
         fig, ax = plt.subplots(1, k, figsize=(10, 6), constrained_layout=True, sharex=True, sharey=True)
@@ -30,6 +30,8 @@ class KArmedBandit:
         [(ax[i].set_xticks([]), ax[i].set_xlabel("Action %i" % (i+1))) for i in range(k)]
         fig.suptitle("The %i-armed bandit" % k)
         plt.show()
+        fig.savefig("../img/ch2/karmedbandit_actions.png", dpi=100)
+        
     
     def reset(self):
         # Resets counters and rewards
@@ -101,11 +103,12 @@ if __name__ == "__main__":
     ax.plot(q1, color="red", label="$\epsilon = 0.01$")
     ax.plot(q2, color="green", label="$\epsilon = 0.00$")
 
-    ax1.plot(opt0, color="blue", label="$\epsilon = 0.10$")
-    ax1.plot(opt1, color="red", label="$\epsilon = 0.01$")
-    ax1.plot(opt2, color="green", label="$\epsilon = 0.00$")
+    ax1.plot(100 * opt0, color="blue", label="$\epsilon = 0.10$")
+    ax1.plot(100 * opt1, color="red", label="$\epsilon = 0.01$")
+    ax1.plot(100 * opt2, color="green", label="$\epsilon = 0.00$")
 
     ax.set_xlabel("Steps"), ax1.set_xlabel("Steps")
     ax.set_ylabel("Average Reward"), ax1.set_ylabel("Optimal Action (%)")
     ax.legend()
     plt.show()
+    fig.savefig("../img/ch2/karmedbandit_evaluation.png", dpi=100)
