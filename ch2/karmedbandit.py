@@ -22,7 +22,7 @@ class KArmedBandit:
         self.save = save
         # Plots reward distributions
         mpl.rcParams["font.size"] = 12
-        fig, ax = plt.subplots(1, 1, figsize=(10, 6), constrained_layout=True, sharex=True, sharey=True)
+        fig, ax = plt.subplots(1, 1, figsize=(8, 6), constrained_layout=True, sharex=True, sharey=True)
         plots = ax.violinplot([np.random.normal(loc=self.mean_values[i], size=1000) for i in range(k)])
         for i, body in enumerate(plots["bodies"]):
             body.set_facecolor(colors[i - 10 if k > 10 else i])
@@ -33,7 +33,7 @@ class KArmedBandit:
         ax.set_xlabel("Action")
         ax.set_ylabel("Reward distribution")
         if save:
-            fig.savefig(os.path.join(save, "Figure_2.1.png"), dpi=fig.dpi)
+            fig.savefig(os.path.join(save, "Figure_2.1.png"), dpi=120)
         else:    
             plt.show()
     
@@ -118,7 +118,7 @@ class KArmedBandit:
         ax.set_ylabel("Average Reward"), ax1.set_ylabel("Optimal Action (%)")
         ax.legend()
         if self.save:
-            fig.savefig(os.path.join(save, "Figure_2.2.png"), dpi=fig.dpi)
+            fig.savefig(os.path.join(self.save, "Figure_2.2.png"), dpi=120)
         else:    
             plt.show()
         
@@ -128,15 +128,15 @@ class KArmedBandit:
         q0, opt0 = self.rob_n_times(n=2000, steps=1000, p=0.0, alpha=0.1, initial=5)
         q1, opt1 = self.rob_n_times(n=2000, steps=1000, p=0.1, alpha=0.1)
         fig, (ax, ax1) = plt.subplots(1, 2, figsize=(12, 4), constrained_layout=True, sharex=True)
-        ax.plot(q0, color="blue", label="greedy:     Q+5")
-        ax.plot(q1, color="red", label="$\\epsilon$-greedy: $\\epsilon = 0.1$, Q+0")
+        ax.plot(q0, color="blue", label="$\\epsilon = 0.0$, Q+5")
+        ax.plot(q1, color="red", label="$\\epsilon = 0.1$, Q+0")
         ax1.plot(100 * opt0, color="blue")
         ax1.plot(100 * opt1, color="red")
         ax.set_xlabel("Steps"), ax1.set_xlabel("Steps")
         ax.set_ylabel("Average Reward"), ax1.set_ylabel("Optimal Action (%)")
         ax.legend()
         if self.save:
-            fig.savefig(os.path.join(save, "Figure_2.3.png"), dpi=fig.dpi)
+            fig.savefig(os.path.join(self.save, "Figure_2.3.png"), dpi=120)
         else:    
             plt.show()
     
@@ -146,15 +146,15 @@ class KArmedBandit:
         q0, opt0 = self.rob_n_times(n=2000, steps=1000, p=0.1)
         q1, opt1 = self.rob_n_times(n=2000, steps=1000, p=0.0, ucb=2.0)
         fig, (ax, ax1) = plt.subplots(1, 2, figsize=(12, 4), constrained_layout=True, sharex=True)
-        ax.plot(q0, color="grey", label="$\epsilon$-greedy: $\epsilon = 0.1$")
-        ax.plot(q1, color="blue", label="UCB:        $c = 2.0$")
+        ax.plot(q0, color="grey", label="$\\epsilon = 0.1$, $UCB = 0.0$")
+        ax.plot(q1, color="blue", label="$\\epsilon = 0.0$, $UCB = 2.0$")
         ax1.plot(100 * opt0, color="grey")
         ax1.plot(100 * opt1, color="blue")
         ax.set_xlabel("Steps"), ax1.set_xlabel("Steps")
         ax.set_ylabel("Average Reward"), ax1.set_ylabel("Optimal Action (%)")
         ax.legend()
         if self.save:
-            fig.savefig(os.path.join(save, "Figure_2.4.png"), dpi=fig.dpi)
+            fig.savefig(os.path.join(self.save, "Figure_2.4.png"), dpi=120)
         else:    
             plt.show()
         

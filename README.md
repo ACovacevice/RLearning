@@ -18,10 +18,10 @@ Some results for the <i>"sample-averaged"</i>, <i>&epsilon;-greedy</i> 10-armed 
 
 <p align="center">
     <img src="img/ch2/Figure_2.3.png"><br>
-    <b>Figure 2.3.</b> Results from 2000 runs of 1000 steps each. <a style="color:blue";>Blue:</a> greedy steps with optimistic initial values; <a style="color:red">Red:</a> &epsilon;-greedy steps.
+    <b>Figure 2.3.</b> Results from 2000 runs of 1000 steps each. <b>Blue:</b> greedy steps with optimistic initial values; <b>Red:</b> &epsilon;-greedy steps.
 </p>
 
 <p align="center">
     <img src="img/ch2/Figure_2.4.png"><br>
-    <b>Figure 2.4.</b> Results from 2000 runs of 1000 steps each. <a style="color:blue";>Blue:</a> upper-confidence bound greedy steps; <a style="color:grey">Grey:</a> &epsilon;-greedy steps.
+    <b>Figure 2.4.</b> Results from 2000 runs of 1000 steps each. <b>Blue:</b> upper-confidence bound greedy steps; <b>Grey:</b> &epsilon;-greedy steps.
 </p>
