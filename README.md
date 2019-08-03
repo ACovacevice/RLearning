@@ -7,7 +7,7 @@ Code being developed while studying the book "Reinforcement Learning: An Introdu
 Some results for the <i>"sample-averaged"</i>, <i>&epsilon;-greedy</i> 10-armed bandit model are presented below:
 
 <p align="center">
-    <img src="img/ch2/Figure_2.1.png" width="100%" height="100%"><br>
+    <img src="img/ch2/Figure_2.1.png" width="70%" height="70%"><br>
     <b>Figure 2.1.</b> Rewards for each action in a 10-armed bandit.
 </p>
 
